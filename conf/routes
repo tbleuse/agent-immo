@@ -1,0 +1,42 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET         /                                controllers.pages.ApplicationController.index
+GET         /signOut                         controllers.pages.ApplicationController.signOut
+GET         /authenticate/:provider          controllers.auth.SocialAuthController.authenticate(provider)
+
+GET         /signUp                          controllers.auth.SignUpController.view
+POST        /signUp                          controllers.auth.SignUpController.submit
+
+GET         /signIn                          controllers.auth.SignInController.view
+POST        /signIn                          controllers.auth.SignInController.submit
+
+GET         /password/forgot                 controllers.auth.ForgotPasswordController.view
+POST        /password/forgot                 controllers.auth.ForgotPasswordController.submit
+GET         /password/reset/:token           controllers.auth.ResetPasswordController.view(token: java.util.UUID)
+POST        /password/reset/:token           controllers.auth.ResetPasswordController.submit(token: java.util.UUID)
+GET         /password/change                 controllers.auth.ChangePasswordController.view
+POST        /password/change                 controllers.auth.ChangePasswordController.submit
+
+GET         /account/email/:email            controllers.auth.ActivateAccountController.send(email: String)
+GET         /account/activate/:token         controllers.auth.ActivateAccountController.activate(token: java.util.UUID)
+
+GET         /clients                         controllers.pages.ApplicationController.clients
+GET         /houses                          controllers.pages.ApplicationController.houses
+
+GET         /api/clients                     controllers.api.ClientApiController.getAll
+POST        /api/clients/zone                controllers.api.ClientApiController.createZone
+GET         /api/clients/:id                 controllers.api.ClientApiController.get(id: Int)
+PUT         /api/clients/:id                 controllers.api.ClientApiController.update(id: Int)
+POST        /api/clients                     controllers.api.ClientApiController.create
+
+
+GET         /api/houses                     controllers.api.HouseApiController.getAll
+GET         /api/houses/:id                 controllers.api.HouseApiController.get(id: Int)
+POST        /api/houses                     controllers.api.HouseApiController.create
+
+# Map static resources from the /public folder to the /assets URL path
+GET         /assets/*file                    controllers.Assets.at(path="/public", file)
+GET         /webjars/*file                   controllers.WebJarAssets.at(file)
